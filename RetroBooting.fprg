@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<flowgorithm fileversion="3.0">
+    <attributes>
+        <attribute name="name" value=""/>
+        <attribute name="authors" value="yogen"/>
+        <attribute name="about" value=""/>
+        <attribute name="saved" value="2023-01-19 12:02:51 AM"/>
+        <attribute name="created" value="eW9nZW47REVTS1RPUC1JU0Y0UURFOzIwMjMtMDEtMTI7MDI6NDg6NTggUE07MjkwNw=="/>
+        <attribute name="edited" value="YWpheXI7QUpBWTsyMDIzLTAxLTE1OzAzOjQ2OjUxIFBNOzY7MjIxOA=="/>
+        <attribute name="edited" value="eW9nZW47REVTS1RPUC1JU0Y0UURFOzIwMjMtMDEtMTc7MDQ6MDA6MDYgUE07MTt5b2dlbjtERVNLVE9QLUlTRjRRREU7MjAyMy0wMS0xMzswMzo0MDo1MCBQTTtqa2prLmZwcmc7NjkxNw=="/>
+        <attribute name="edited" value="eW9nZW47REVTS1RPUC1JU0Y0UURFOzIwMjMtMDEtMTc7MDQ6MTg6NDEgUE07MTg7MzA2Nw=="/>
+        <attribute name="edited" value="TmlzaGl0aCBQO0xBUFRPUC1WSzhUNE5MTjsyMDIzLTAxLTE5OzEyOjAyOjUxIEFNOzg7MzMwNg=="/>
+    </attributes>
+    <function name="Main" type="None" variable="">
+        <parameters/>
+        <body>
+            <call expression="initGame()"/>
+        </body>
+    </function>
+    <function name="getFileContents" type="String" variable="content">
+        <parameters>
+            <parameter name="fileName" type="String" array="False"/>
+        </parameters>
+        <body>
+            <declare name="content, line" type="String" array="False" size=""/>
+            <assign variable="line" expression="&quot; &quot;"/>
+            <assign variable="content" expression="&quot;&quot;"/>
+            <open expression="fileName" mode="read"/>
+            <while expression="!EOF()">
+                <read variable="line"/>
+                <assign variable="content" expression="content&amp;line&amp;ToChar(10)"/>
+            </while>
+            <close/>
+        </body>
+    </function>
+    <function name="initGame" type="None" variable="score">
+        <parameters/>
+        <body>
+            <declare name="answer, option, ans, score, i" type="Integer" array="False" size=""/>
+            <declare name="temp, content" type="String" array="False" size=""/>
+            <assign variable="content" expression="getFileContents(&quot;game.txt&quot;)"/>
+            <declare name="flag" type="Boolean" array="False" size=""/>
+            <assign variable="score" expression="0"/>
+            <assign variable="flag" expression="false"/>
+            <assign variable="i" expression="0"/>
+            <assign variable="temp" expression="&quot;&quot;"/>
+            <for variable="i" start="0" end="len(content)-1" direction="inc" step="1">
+                <while expression="ToCode(char(content,i))!=10">
+                    <assign variable="temp" expression="temp&amp;char(content,i)"/>
+                    <assign variable="i" expression="i+1"/>
+                </while>
+                <if expression="temp==&quot;-- BEGIN QUESTION --&quot;">
+                    <then/>
+                    <else>
+                        <if expression="temp=&quot;-- END QUESTION --&quot;">
+                            <then>
+                                <assign variable="flag" expression="true"/>
+                            </then>
+                            <else>
+                                <if expression="flag=true">
+                                    <then>
+                                        <assign variable="ans" expression="toInteger(temp)"/>
+                                        <input variable="option"/>
+                                        <if expression="option == ans">
+                                            <then>
+                                                <output expression="&quot;Correct Answer!&quot;" newline="True"/>
+                                                <assign variable="score" expression="score+1"/>
+                                            </then>
+                                            <else>
+                                                <output expression="&quot;Nope&quot;" newline="True"/>
+                                            </else>
+                                        </if>
+                                        <assign variable="flag" expression="false"/>
+                                    </then>
+                                    <else>
+                                        <output expression="temp" newline="True"/>
+                                    </else>
+                                </if>
+                            </else>
+                        </if>
+                    </else>
+                </if>
+                <assign variable="temp" expression="&quot;&quot;"/>
+            </for>
+            <output expression="&quot;----------&quot;&amp;toChar(13)&amp;&quot;Your score is &quot;&amp;score&amp;&quot;!&quot;" newline="True"/>
+        </body>
+    </function>
+</flowgorithm>
