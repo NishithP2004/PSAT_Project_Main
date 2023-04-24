@@ -1,0 +1,3 @@
+[submodule "PSAT_Project_API_Wrapper"]
+	path = PSAT_Project_API_Wrapper
+	url = https://github.com/NishithP2004/PSAT_Project_API_Wrapper.git
